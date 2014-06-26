@@ -5,10 +5,10 @@ defmodule Issues.GithubIssues do
 
   def fetch(user, project) do
     case HTTPotion.get(issues_url(user, project), @user_agent) do
-      Response[body: body, status_code: status, headers: _headers ]
+      %Response{ body: body, status_code: status }
       when status in 200..299 ->
         { :ok, body }
-      Response[body: body, status_code: _status, headers: _headers ] ->
+      %Response{ body: body } ->
         { :error, body }
     end
   end
