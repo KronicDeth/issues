@@ -5,6 +5,10 @@ defmodule Issues.CLI do
   that end up generating a table of the last _n_ issues in a github project
   """
 
+  def convert_to_list_of_hash_dicts(list) do
+    list |> Enum.map(&Enum.into(&1, HashDict.new))
+  end
+
   def decode_response({:ok, body}), do: :jsx.decode(body)
 
   def decode_response({:error, msg}), do
