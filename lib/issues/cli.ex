@@ -5,6 +5,14 @@ defmodule Issues.CLI do
   that end up generating a table of the last _n_ issues in a github project
   """
 
+  def decode_response({:ok, body}), do: :jsx.decode(body)
+
+  def decode_response({:error, msg}), do
+    error = :jsx.decode(msg)["message"]
+    IO.puts "Error fetching from Github: #{error}"
+    System.halt(2)
+  end
+
   @doc """
   `argv` can be -h or --help, which returns :help.
 
@@ -40,6 +48,7 @@ defmodule Issues.CLI do
   
   def process({user, project, _count}) do
     Issues.GithubIssues.fetch(user, project)
+    |> decode_response
   end
 
   def run(argv) do
