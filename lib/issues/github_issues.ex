@@ -4,13 +4,15 @@ defmodule Issues.GithubIssues do
   @user_agent [ "User-agent": "Elixir Kronic.Deth@gmail.com" ]
 
   def fetch(user, project) do
-    case HTTPotion.get(issues_url(user, project), @user_agent) do
-      %Response{ body: body, status_code: status }
-      when status in 200..299 ->
-        { :ok, body }
-      %Response{ body: body } ->
-        { :error, body }
+    response = HTTPotion.get(issues_url(user, project), @user_agent)
+
+    flag = if Response.success? response do
+      :ok
+    else
+      :error
     end
+
+    { flag, response.body }  
   end
 
   def issues_url(user, project) do
