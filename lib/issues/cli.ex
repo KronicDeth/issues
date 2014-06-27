@@ -11,7 +11,7 @@ defmodule Issues.CLI do
 
   def decode_response({:ok, body}), do: :jsx.decode(body)
 
-  def decode_response({:error, msg}), do
+  def decode_response({:error, msg}) do
     error = :jsx.decode(msg)["message"]
     IO.puts "Error fetching from Github: #{error}"
     System.halt(2)
@@ -53,11 +53,18 @@ defmodule Issues.CLI do
   def process({user, project, _count}) do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response
+    |> convert_to_list_of_hash_dicts
+    |> sort_into_ascending_order
   end
 
   def run(argv) do
     argv
     |> parse_args
     |> process
+  end
+
+  def sort_into_ascending_order(list_of_issues) do
+    Enum.sort list_of_issues,
+              fn i1, i2 -> i1["created_at"] <= i2["created_at"] end
   end
 end
