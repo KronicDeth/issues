@@ -56,6 +56,7 @@ defmodule Issues.CLI do
     |> convert_to_list_of_hash_dicts
     |> sort_into_ascending_order
     |> Enum.take(count)
+    |> Issues.TableFormatter.print_table_for_columns(["number", "created_at", "title"])
   end
 
   def run(argv) do
