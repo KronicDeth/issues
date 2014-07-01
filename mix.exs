@@ -7,6 +7,8 @@ defmodule Issues.Mixfile do
       deps: deps,
       elixir: "~> 0.14.0",
       escript_main_module: Issues.CLI,
+      name: "Issues",
+      source_url: "https://github.com/KronicDeth/issues",
       version: "0.0.1"
     ]
   end
