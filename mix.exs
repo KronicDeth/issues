@@ -2,11 +2,13 @@ defmodule Issues.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :issues,
-     version: "0.0.1",
-     elixir: "~> 0.14.0",
-     escript_main_module: Issues.CLI,
-     deps: deps]
+    [
+      app: :issues,
+      deps: deps,
+      elixir: "~> 0.14.0",
+      escript_main_module: Issues.CLI,
+      version: "0.0.1"
+    ]
   end
 
   # Configuration for the OTP application
