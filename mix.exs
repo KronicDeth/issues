@@ -31,6 +31,7 @@ defmodule Issues.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
+      { :ex_doc,    github: "elixir-lang/ex_doc" },
       { :httpotion, github: "myfreeweb/httpotion" },
       { :jsx,       github: "talentdeficit/jsx" }
     ]
