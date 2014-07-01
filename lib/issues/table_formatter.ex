@@ -22,7 +22,7 @@ defmodule Issues.TableFormatter do
   end
 
   def printable(str) when is_binary(str), do: str
-  def printtable(str), do: to_string(str)
+  def printable(str), do: to_string(str)
 
   def puts_in_columns(data_by_columns, format) do
     data_by_columns
