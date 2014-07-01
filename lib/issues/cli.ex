@@ -17,6 +17,12 @@ defmodule Issues.CLI do
     System.halt(2)
   end
 
+  def main(argv) do
+    argv
+    |> parse_args
+    |> process
+  end
+
   @doc """
   `argv` can be -h or --help, which returns :help.
 
@@ -57,12 +63,6 @@ defmodule Issues.CLI do
     |> sort_into_ascending_order
     |> Enum.take(count)
     |> Issues.TableFormatter.print_table_for_columns(["number", "created_at", "title"])
-  end
-
-  def run(argv) do
-    argv
-    |> parse_args
-    |> process
   end
 
   def sort_into_ascending_order(list_of_issues) do
